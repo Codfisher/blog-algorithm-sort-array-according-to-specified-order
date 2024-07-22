@@ -27,15 +27,10 @@ export namespace sortArrayById {
     idOrders: string[],
     idFiled: string = 'id',
   ) {
-    return [...array].sort((a, b) => {
-      const aIndex = idOrders.indexOf(a[idFiled]);
-      const bIndex = idOrders.indexOf(b[idFiled]);
+    const itemMap = new Map(array.map((item) => [item[idFiled], item]));
 
-      // 不存在的項目要被往後排
-      if (aIndex < 0) return 1;
-      if (bIndex < 0) return -1;
-
-      return aIndex - bIndex;
-    });
+    return idOrders
+      .map((id) => itemMap.get(id))
+      .filter((item) => item !== undefined);
   }
 }
