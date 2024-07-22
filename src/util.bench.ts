@@ -2,7 +2,7 @@ import { bench, describe, expect, it } from 'vitest'
 import { sortArrayById } from './util.js'
 
 describe('sortArrayById', () => {
-  describe('少量資料', () => {
+  describe('3 筆資料', () => {
     const array: Array<{ id: string }> = [
       { id: 'a' },
       { id: 'b' },
@@ -18,11 +18,11 @@ describe('sortArrayById', () => {
     });
   });
 
-  describe('大量資料', () => {
+  describe('100 筆資料', () => {
     const largeArray: Array<{ id: string }> = [];
     const largeIds: string[] = [];
 
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 100; i++) {
       const id = `id${i}`;
       largeArray.push({ id });
       largeIds.push(id);
