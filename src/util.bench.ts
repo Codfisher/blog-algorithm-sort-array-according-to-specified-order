@@ -19,27 +19,27 @@ describe('sortArrayById', () => {
   });
 
   describe('100 筆資料', () => {
-    const largeArray: Array<{ id: string }> = [];
-    const largeIds: string[] = [];
+    const array: Array<{ id: string }> = [];
+    const ids: string[] = [];
 
     for (let i = 0; i < 100; i++) {
       const id = `id${i}`;
-      largeArray.push({ id });
-      largeIds.push(id);
+      array.push({ id });
+      ids.push(id);
     }
 
-    // 打亂 largeIds 順序
-    for (let i = largeIds.length - 1; i > 0; i--) {
+    // 打亂順序
+    for (let i = ids.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [largeIds[i], largeIds[j]] = [largeIds[j], largeIds[i]];
+      [ids[i], ids[j]] = [ids[j], ids[i]];
     }
 
     bench('original', () => {
-      sortArrayById(largeArray, largeIds);
+      sortArrayById(array, ids);
     });
 
     bench('map', () => {
-      sortArrayById.map(largeArray, largeIds);
+      sortArrayById.map(array, ids);
     });
   });
 })
