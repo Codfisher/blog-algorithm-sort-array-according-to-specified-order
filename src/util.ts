@@ -46,7 +46,7 @@ export namespace sortArrayById {
     array.forEach((item) => itemMap[item[idFiled]] = item)
 
     return idOrders
-      .map((id) => itemMap.get(id))
+      .map((id) => itemMap[id])
       .filter((item) => item !== undefined);
   }
 }
