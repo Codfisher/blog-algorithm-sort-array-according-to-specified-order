@@ -33,4 +33,20 @@ export namespace sortArrayById {
       .map((id) => itemMap.get(id))
       .filter((item) => item !== undefined);
   }
+
+  /** 使用 object 實作 */
+  export function object<
+    Item extends Record<string, string>
+  >(
+    array: Item[],
+    idOrders: string[],
+    idFiled: string = 'id',
+  ) {
+    const itemMap: Record<string, any> = {};
+    array.forEach((item) => itemMap[item[idFiled]] = item)
+
+    return idOrders
+      .map((id) => itemMap.get(id))
+      .filter((item) => item !== undefined);
+  }
 }
