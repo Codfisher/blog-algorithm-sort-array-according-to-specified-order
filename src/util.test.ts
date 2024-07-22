@@ -1,82 +1,39 @@
 import { describe, expect, it } from 'vitest'
 import { sortArrayById } from './util.js'
 
-describe('sortArrayById', () => {
-  it('應依照順序排序', () => {
-    const array: Array<{ id: string }> = [
-      { id: 'a' },
-      { id: 'b' },
-      { id: 'c' },
-    ]
-    const result = sortArrayById(array, ['a', 'c', 'b']);
-
-    expect(result).toHaveLength(array.length)
-    expect(result).toEqual([
-      { id: 'a' },
-      { id: 'c' },
-      { id: 'b' },
-    ])
-  });
-
-  it('order 缺少元素，缺少的元素會排在最後', () => {
-    const array: Array<{ id: string }> = [
-      { id: 'a' },
-      { id: 'b' },
-      { id: 'c' },
-    ]
-    const result = sortArrayById(array, ['c']);
-
-    expect(result).toHaveLength(array.length)
-    expect(result[0]).toEqual({ id: 'c' })
-  });
-
-  it('order 包含額外元素不會有任何影響', () => {
-    const array: Array<{ id: string }> = [
-      { id: 'a' },
-      { id: 'b' },
-      { id: 'c' },
-    ]
-    const result = sortArrayById(array, ['b', 'c', 'a', 'd']);
-
-    expect(result).toHaveLength(array.length)
-    expect(result).toEqual([
-      { id: 'b' },
-      { id: 'c' },
-      { id: 'a' },
-    ])
-  });
-})
-
-
+/** 測試變體 */
 describe.each([
+  sortArrayById,
   sortArrayById.map,
-])('測試 sortArrayById 所有變體', () => {
+])('sortArrayById', (func) => {
   it('應依照順序排序', () => {
     const array: Array<{ id: string }> = [
       { id: 'a' },
       { id: 'b' },
       { id: 'c' },
     ]
-    const result = sortArrayById(array, ['a', 'c', 'b']);
+    const orders = ['c', 'b', 'a'];
+    const result = func(array, orders);
 
-    expect(result).toHaveLength(array.length)
+    expect(result).toHaveLength(orders.length)
     expect(result).toEqual([
-      { id: 'a' },
       { id: 'c' },
       { id: 'b' },
+      { id: 'a' },
     ])
   });
 
-  it('order 缺少元素，缺少的元素會排在最後', () => {
+  it('order 缺少的元素會被忽略', () => {
     const array: Array<{ id: string }> = [
       { id: 'a' },
       { id: 'b' },
       { id: 'c' },
     ]
-    const result = sortArrayById(array, ['c']);
+    const orders = ['c'];
+    const result = func(array, orders);
 
-    expect(result).toHaveLength(array.length)
-    expect(result[0]).toEqual({ id: 'c' })
+    expect(result).toHaveLength(orders.length)
+    expect(result).toEqual([{ id: 'c' }])
   });
 
   it('order 包含額外元素不會有任何影響', () => {
@@ -85,12 +42,13 @@ describe.each([
       { id: 'b' },
       { id: 'c' },
     ]
-    const result = sortArrayById(array, ['b', 'c', 'a', 'd']);
+    const orders = ['c', 'b', 'a', 'd'];
+    const result = func(array, orders);
 
-    expect(result).toHaveLength(array.length)
+    expect(result).toHaveLength(orders.length - 1)
     expect(result).toEqual([
-      { id: 'b' },
       { id: 'c' },
+      { id: 'b' },
       { id: 'a' },
     ])
   });
