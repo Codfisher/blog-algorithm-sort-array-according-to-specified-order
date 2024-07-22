@@ -1,14 +1,13 @@
-export function sortArrayByOrder<
-  Item,
-  Field extends (keyof Item)
+export function sortArrayById<
+  Item extends Record<string, string>
 >(
   array: Item[],
-  field: Field,
-  orderList: Array<Item[Field]>
+  idOrders: string[],
+  idFiled: string = 'id',
 ) {
   return [...array].sort((a, b) => {
-    const aIndex = orderList.indexOf(a[field]);
-    const bIndex = orderList.indexOf(b[field]);
+    const aIndex = idOrders.indexOf(a[idFiled]);
+    const bIndex = idOrders.indexOf(b[idFiled]);
 
     // 不存在的項目要被往後排
     if (aIndex < 0) return 1;
@@ -19,25 +18,18 @@ export function sortArrayByOrder<
 }
 
 /** 各種實作變體 */
-export namespace sortArrayByOrder {
+export namespace sortArrayById {
   /** 使用 map 實作 */
   export function map<
-    Item,
-    Field extends (keyof Item)
+    Item extends Record<string, string>
   >(
     array: Item[],
-    field: Field,
-    orderList: Array<Item[Field]>
+    idOrders: string[],
+    idFiled: string = 'id',
   ) {
-    // 使用 Map 儲存索引
-    const orderMap = new Map<Item[Field], number>();
-    orderList.forEach((value, index) => {
-      orderMap.set(value, index);
-    });
-
     return [...array].sort((a, b) => {
-      const aIndex = orderMap.has(a[field]) ? orderMap.get(a[field])! : -1;
-      const bIndex = orderMap.has(b[field]) ? orderMap.get(b[field])! : -1;
+      const aIndex = idOrders.indexOf(a[idFiled]);
+      const bIndex = idOrders.indexOf(b[idFiled]);
 
       // 不存在的項目要被往後排
       if (aIndex < 0) return 1;

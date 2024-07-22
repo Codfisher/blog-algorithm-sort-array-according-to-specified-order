@@ -1,97 +1,97 @@
 import { describe, expect, it } from 'vitest'
-import { sortArrayByOrder } from './util.js'
+import { sortArrayById } from './util.js'
 
-describe('sortArrayByOrder', () => {
+describe('sortArrayById', () => {
   it('應依照順序排序', () => {
-    const array: Array<{ value: string }> = [
-      { value: 'a' },
-      { value: 'b' },
-      { value: 'c' },
+    const array: Array<{ id: string }> = [
+      { id: 'a' },
+      { id: 'b' },
+      { id: 'c' },
     ]
-    const result = sortArrayByOrder(array, 'value', ['a', 'c', 'b']);
+    const result = sortArrayById(array, ['a', 'c', 'b']);
 
     expect(result).toHaveLength(array.length)
     expect(result).toEqual([
-      { value: 'a' },
-      { value: 'c' },
-      { value: 'b' },
+      { id: 'a' },
+      { id: 'c' },
+      { id: 'b' },
     ])
   });
 
   it('order 缺少元素，缺少的元素會排在最後', () => {
-    const array: Array<{ value: string }> = [
-      { value: 'a' },
-      { value: 'b' },
-      { value: 'c' },
+    const array: Array<{ id: string }> = [
+      { id: 'a' },
+      { id: 'b' },
+      { id: 'c' },
     ]
-    const result = sortArrayByOrder(array, 'value', ['c']);
+    const result = sortArrayById(array, ['c']);
 
     expect(result).toHaveLength(array.length)
-    expect(result[0]).toEqual({ value: 'c' })
+    expect(result[0]).toEqual({ id: 'c' })
   });
 
   it('order 包含額外元素不會有任何影響', () => {
-    const array: Array<{ value: string }> = [
-      { value: 'a' },
-      { value: 'b' },
-      { value: 'c' },
+    const array: Array<{ id: string }> = [
+      { id: 'a' },
+      { id: 'b' },
+      { id: 'c' },
     ]
-    const result = sortArrayByOrder(array, 'value', ['b', 'c', 'a', 'd']);
+    const result = sortArrayById(array, ['b', 'c', 'a', 'd']);
 
     expect(result).toHaveLength(array.length)
     expect(result).toEqual([
-      { value: 'b' },
-      { value: 'c' },
-      { value: 'a' },
+      { id: 'b' },
+      { id: 'c' },
+      { id: 'a' },
     ])
   });
 })
 
 
 describe.each([
-  sortArrayByOrder.map,
-])('測試 sortArrayByOrder 所有變體', () => {
+  sortArrayById.map,
+])('測試 sortArrayById 所有變體', () => {
   it('應依照順序排序', () => {
-    const array: Array<{ value: string }> = [
-      { value: 'a' },
-      { value: 'b' },
-      { value: 'c' },
+    const array: Array<{ id: string }> = [
+      { id: 'a' },
+      { id: 'b' },
+      { id: 'c' },
     ]
-    const result = sortArrayByOrder(array, 'value', ['a', 'c', 'b']);
+    const result = sortArrayById(array, ['a', 'c', 'b']);
 
     expect(result).toHaveLength(array.length)
     expect(result).toEqual([
-      { value: 'a' },
-      { value: 'c' },
-      { value: 'b' },
+      { id: 'a' },
+      { id: 'c' },
+      { id: 'b' },
     ])
   });
 
   it('order 缺少元素，缺少的元素會排在最後', () => {
-    const array: Array<{ value: string }> = [
-      { value: 'a' },
-      { value: 'b' },
-      { value: 'c' },
+    const array: Array<{ id: string }> = [
+      { id: 'a' },
+      { id: 'b' },
+      { id: 'c' },
     ]
-    const result = sortArrayByOrder(array, 'value', ['c']);
+    const result = sortArrayById(array, ['c']);
 
     expect(result).toHaveLength(array.length)
-    expect(result[0]).toEqual({ value: 'c' })
+    expect(result[0]).toEqual({ id: 'c' })
   });
 
   it('order 包含額外元素不會有任何影響', () => {
-    const array: Array<{ value: string }> = [
-      { value: 'a' },
-      { value: 'b' },
-      { value: 'c' },
+    const array: Array<{ id: string }> = [
+      { id: 'a' },
+      { id: 'b' },
+      { id: 'c' },
     ]
-    const result = sortArrayByOrder(array, 'value', ['b', 'c', 'a', 'd']);
+    const result = sortArrayById(array, ['b', 'c', 'a', 'd']);
 
     expect(result).toHaveLength(array.length)
     expect(result).toEqual([
-      { value: 'b' },
-      { value: 'c' },
-      { value: 'a' },
+      { id: 'b' },
+      { id: 'c' },
+      { id: 'a' },
     ])
   });
 })

@@ -1,7 +1,7 @@
 import { bench, describe, expect, it } from 'vitest'
-import { sortArrayByOrder } from './util.js'
+import { sortArrayById } from './util.js'
 
-describe('sortArrayByOrder', () => {
+describe('sortArrayById', () => {
   describe('應依照順序排序', () => {
     const array: Array<{ value: string }> = [
       { value: 'a' },
@@ -10,11 +10,11 @@ describe('sortArrayByOrder', () => {
     ]
 
     bench('original', () => {
-      sortArrayByOrder(array, 'value', ['a', 'c', 'b']);
+      sortArrayById(array, ['a', 'c', 'b']);
     });
 
     bench('map', () => {
-      sortArrayByOrder.map(array, 'value', ['a', 'c', 'b']);
+      sortArrayById.map(array, ['a', 'c', 'b']);
     });
   });
 
@@ -26,11 +26,11 @@ describe('sortArrayByOrder', () => {
     ]
 
     bench('original', () => {
-      sortArrayByOrder(array, 'value', ['c']);
+      sortArrayById(array, ['c']);
     });
 
     bench('map', () => {
-      sortArrayByOrder.map(array, 'value', ['c']);
+      sortArrayById.map(array, ['c']);
     });
   });
 
@@ -42,11 +42,11 @@ describe('sortArrayByOrder', () => {
     ]
 
     bench('original', () => {
-      sortArrayByOrder(array, 'value', ['b', 'c', 'a', 'd']);
+      sortArrayById(array, ['b', 'c', 'a', 'd']);
     });
 
     bench('map', () => {
-      sortArrayByOrder.map(array, 'value', ['b', 'c', 'a', 'd']);
+      sortArrayById.map(array, ['b', 'c', 'a', 'd']);
     });
   });
 })
